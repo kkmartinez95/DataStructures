@@ -53,13 +53,12 @@ class BinarySearchTree {
     let newNode = new Node(value);
     let currentNode = this.root;
 
-    if (this.root === null) {
+    if (!this.root) {
       this.root = newNode;
-      return this;
     } else {
-      while (currentNode !== null) {
-        if (value === currentNode.value) {
-          return console.log(`The value ${value} is already in the BST!`);
+      while (currentNode.next !== null) {
+        if (currentNode.value === value) {
+          return console.log(`The value ${value} is already in the tree!`);
         }
 
         if (value > currentNode.value) {
@@ -69,7 +68,9 @@ class BinarySearchTree {
           } else {
             currentNode = currentNode.right;
           }
-        } else if (value < currentNode.value) {
+        }
+
+        if (value < currentNode.value) {
           if (currentNode.left === null) {
             currentNode.left = newNode;
             return this;
@@ -82,21 +83,31 @@ class BinarySearchTree {
   }
 
   find(value) {
-    if (this.root === null) return false;
-
-    let current = this.root;
+    let currentNode = this.root;
     let found = false;
 
-    while (current && !found) {
-      if (value < current.value) {
-        current = current.left;
-      } else if (value > current.value) {
-        current = current.right;
-      } else {
+    if (!currentNode) return console.log("EMPTY TREE");
+
+    // if (currentNode.value === value) {
+    //   return console.log(
+    //     `The value ${currentNode.value} is found in the tree!`
+    //   );
+    // } else {
+    while (currentNode.next !== null && !found) {
+      if (currentNode.value === value) {
         found = true;
+        break;
+      }
+      if (value > currentNode.value) {
+        currentNode = currentNode.right;
+      }
+      if (value < currentNode.value) {
+        currentNode = currentNode.left;
       }
     }
-    return console.log(`THIS IS THE FOUND VALUE! ${current.value}`);
+    // }
+
+    return console.log(`The value ${currentNode.value} is found in the tree!`);
   }
 }
 
@@ -121,8 +132,9 @@ tree.insert(1);
 tree.insert(99);
 
 tree.find(1);
+tree.find(99);
 
-// console.log("TREE >>>>", tree);
+console.log("TREE >>>>", tree);
 
 // insert(value) {
 //     let newNode = new Node(value);
@@ -153,3 +165,21 @@ tree.find(1);
 //       }
 //     }
 //   }
+
+// find(value) {
+//   if (this.root === null) return false;
+
+//   let current = this.root;
+//   let found = false;
+
+//   while (current && !found) {
+//     if (value < current.value) {
+//       current = current.left;
+//     } else if (value > current.value) {
+//       current = current.right;
+//     } else {
+//       found = true;
+//     }
+//   }
+//   return console.log(`THIS IS THE FOUND VALUE! ${current.value}`);
+// }
