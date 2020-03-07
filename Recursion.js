@@ -31,4 +31,70 @@ function factorial(num) {
   return num * factorial(num - 1);
 }
 
-console.log(factorial(5));
+// TESTED HERE
+// console.log(factorial(2));
+
+// HELPER FUNCTIONS AND RECURSION
+
+// prompt: collect all the odd values in an array
+
+// function collectOdds(arr) {
+//   let result = [];
+
+//   function helper(helperInput) {
+//     if (helperInput.length === 0) return;
+//     if (helperInput[0] % 2 === 1) {
+//       result.push(helperInput[0]);
+//     }
+//     helper(helperInput.slice(1));
+//   }
+//   helper(arr);
+//   console.log(result);
+//   return result;
+// }
+
+// PURE RECURSION METHOD
+function collectOdds(arr) {
+  let result = [];
+  // i want to check the first elem in the arr,
+  // if it is positive, remove the first element,
+  // and call collectOdds again with shortend arr
+  if (arr.length === 0) return result;
+
+  if (arr[0] % 2 !== 0) {
+    result.push(arr[0]);
+  }
+  result = result.concat(collectOdds(arr.slice(1)));
+  return result;
+}
+console.log(collectOdds([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+
+/* 
+BIG O
+
+=> BEST: 0(1) 
+found right away
+
+=> AVERAGE: 0(n)
+as n grows, so does the average amount of time it takes to search
+
+=> WORST: 0(n)
+if the inputs length is 1000, we have to travese it 1000 or n times.
+
+*/
+
+// SEARCH: LINEAR
+
+let testArr = ["kaitlyn", "sam", "peter", 44, 8291, "lolz"];
+
+function linearSearch(arr, target) {
+  for (let i = 0; i < arr.length; i++) {
+    // BIG O => O(n)
+    if (arr[i] === target) {
+      return console.log(i);
+    }
+  }
+  return console.log(-1);
+}
+
+linearSearch(testArr, 81);
