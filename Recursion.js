@@ -136,12 +136,17 @@ let numbersBS = [1, 2, 4, 33, 67, 74, 77, 89, 370, 902];
 //   }
 // }
 
+// BIG O OF BINARY SEARCH!
+
+// 0(log n) => worst & average case **
+// O(1) => best case
 function binarySearch(arr, target) {
   let left = 0;
   let right = arr.length - 1;
   let middle = Math.floor((left + right) / 2);
 
   while (arr[middle] !== target && left <= right) {
+    // 0(log n) b/c the input keeps splitting in half...
     if (target > arr[middle]) {
       left = middle + 1;
     } else {
@@ -153,5 +158,33 @@ function binarySearch(arr, target) {
   arr[middle] === target ? console.log(middle) : console.log(-1);
 }
 
-binarySearch(numbersBS, 370);
-binarySearch(numbersBS, 378090);
+// TESTED HERE
+// binarySearch(numbersBS, 370);
+// binarySearch(numbersBS, 378090);
+
+// NAIVE STRING SEARCH
+
+/*
+Pseudo-code: 
+    => defined a func that takes teo strings
+    => loop over the longer string
+    => loop over the shorter string
+    => if the characters don't match, breakout of the inner loop
+    => if the the characters do match, keep going
+    => if you complete the innerloop and find a match, increment the count of matched
+    => return the count
+*/
+
+function naiveSearchString(longString, shortString) {
+  let count = 0;
+
+  for (let i = 0; i < longString.length; i++) {
+    for (let j = 0; j < shortString.length; j++) {
+      if (shortString[j] !== longString[i + j]) break;
+      if (j === shortString.length - 1) count++;
+    }
+  }
+  return console.log("count is: ", count);
+}
+
+naiveSearchString("robert downey jr is iron man, wow wow", "ow");
