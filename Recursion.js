@@ -67,7 +67,8 @@ function collectOdds(arr) {
   result = result.concat(collectOdds(arr.slice(1)));
   return result;
 }
-console.log(collectOdds([1, 2, 3, 4, 5, 6, 7, 8, 9]));
+// TESTED HERE
+// console.log(collectOdds([1, 2, 3, 4, 5, 6, 7, 8, 9]));
 
 /* 
 BIG O
@@ -96,5 +97,61 @@ function linearSearch(arr, target) {
   }
   return console.log(-1);
 }
+// TESTED HERE
+// linearSearch(testArr, 81);
 
-linearSearch(testArr, 81);
+/* 
+BINARY SEARCH
+
+    => function accepts a sorted array and a target value
+    => create a left and right pointer, 
+    => while the left pointer is less than or equal to the right, continue looping
+        => create a middle pointer
+        => if you find the value you want, return the index
+        => if the value is too small, move the left pointer up by 1;
+        => if the value is too big, move the right pointer down by 1;
+    => if the value is never found, return -1
+
+*/
+
+let numbersBS = [1, 2, 4, 33, 67, 74, 77, 89, 370, 902];
+
+// function binarySearch(arr, target) {
+//   let left = 0;
+//   let right = arr.length - 1;
+//   let middle = Math.floor((left + right) / 2);
+
+//   while (arr[middle] !== target && left <= right) {
+//     if (target < arr[middle]) {
+//       right = middle - 1;
+//     } else {
+//       left = middle + 1;
+//     }
+//     middle = Math.floor((left + right) / 2);
+//   }
+//   if (target === arr[middle]) {
+//     return console.log("middle is: ", middle);
+//   } else {
+//     return console.log(-1);
+//   }
+// }
+
+function binarySearch(arr, target) {
+  let left = 0;
+  let right = arr.length - 1;
+  let middle = Math.floor((left + right) / 2);
+
+  while (arr[middle] !== target && left <= right) {
+    if (target > arr[middle]) {
+      left = middle + 1;
+    } else {
+      right = middle - 1;
+    }
+    middle = Math.floor((left + right) / 2);
+  }
+
+  arr[middle] === target ? console.log(middle) : console.log(-1);
+}
+
+binarySearch(numbersBS, 370);
+binarySearch(numbersBS, 378090);
