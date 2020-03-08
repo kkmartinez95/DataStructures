@@ -14,13 +14,20 @@ Pseudo-code:
 
 */
 
+/*
+BIG O:
+    => n^2 nested loop
+*/
+
 function bubbleSort(arr) {
   let noSwap; // this is to optomize sort
   //   let passCount = 0; // uncomment this and line 31 to see the difference of optomizing with `noSwap`
 
   for (let i = arr.length; i > 0; i--) {
+    // n
     noSwap = true; // assume no swaps have been made iitially
     for (let j = 0; j < i - 1; j++) {
+      // n
       console.log("here", arr);
       if (arr[j] > arr[j + 1]) {
         let temp = arr[j];
