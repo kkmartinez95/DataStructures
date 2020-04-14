@@ -25,8 +25,7 @@ pq.popMax() // ==> 'Bob, breathing problems'
 pq.peek() // ==> 'Jill, concussion' // Bob has been removed from the PQ
 */
 
-// creat node class
-
+// create node class
 class Node {
   constructor(data, priorityLevel) {
     this.data = data;
@@ -41,43 +40,42 @@ class PriorityQueue {
   }
 
   insert(data, priorityLevel) {
-    let newItem = new Node(data, priorityLevel);
+    // create the new node
+    let newNode = new Node(data, priorityLevel);
 
     if (!this.first || this.first.priorityLevel < priorityLevel) {
-      // First case: Check if the PQ is empty, or newItem's priority > this.first's
-      newItem.next = this.first;
-      this.first = newItem; // New Node (newItem) becomes new first
+      newNode.next = this.first;
+      this.first = newNode;
     } else {
-      // Second case: Find where to insert newItem
       let currentNode = this.first;
+
       while (
         currentNode.next &&
-        currentNode.next.priorityLevel >= priorityLevel // loops through `n` amount of times in the worst case
+        currentNode.next.priorityLevel >= priorityLevel
       ) {
-        // Traverse queue until it finds a node with priority < search priority
         currentNode = currentNode.next;
       }
-      // Here, currentNode is right before where you want to insert newItem. Point
-      // newItem.next to currentNode.next, then point currentNode's next to newItem.
-      newItem.next = currentNode.next;
-      currentNode.next = newItem;
+
+      newNode.next = currentNode.next;
+      currentNode.next = newNode;
     }
   }
   peek() {
-    return console.log("PEEK HERE!", this.first.data);
+    return console.log(this.first.data);
   }
   popMax() {
-    const maxVal = this.first; // "BILLY, CORONA", 100
-    this.first = this.first.next; // "Jill, concussion", 7 ==> IS NOW THE FIRST ON QUEUE
-    return maxVal.data; // "BILLY, CORONA", 100
+    let currentMax = this.first;
+    this.first = this.first.next;
+
+    return currentMax.data;
   }
 }
 
 let q = new PriorityQueue();
-
 q.insert("Jill, concussion", 7);
 q.insert("John, stomach pain", 5);
-q.insert("BILLY, CORONA", 100);
+q.insert("Bob, breathing problems", 8);
+q.insert("BILLY, CORONA", 100); //
 
 q.peek();
 q.popMax();
@@ -89,6 +87,37 @@ Complexity
 This should be O(1) time complexity for peek and popMax, but O(n) time complexity for insert (where n is the number of nodes in the priority queue).
 Space complexity is O(n), where n is the number of items in the queue.
 */
+
+// let newItem = new Node(data, priorityLevel);
+
+// if (!this.first || this.first.priorityLevel < priorityLevel) {
+//   // First case: Check if the PQ is empty, or newItem's priority > this.first's
+//   newItem.next = this.first;
+//   this.first = newItem; // New Node (newItem) becomes new first
+// } else {
+//   // Second case: Find where to insert newItem
+//   let currentNode = this.first;
+//   while (
+//     currentNode.next &&
+//     currentNode.next.priorityLevel >= priorityLevel // loops through `n` amount of times in the worst case
+//   ) {
+//     // Traverse queue until it finds a node with priority < search priority
+//     currentNode = currentNode.next;
+//   }
+//   // Here, currentNode is right before where you want to insert newItem. Point
+//   // newItem.next to currentNode.next, then point currentNode's next to newItem.
+//   newItem.next = currentNode.next;
+//   currentNode.next = newItem;
+// }
+
+// PEEK
+// return console.log("PEEK HERE!", this.first.data);
+
+// POPMAX
+
+// const maxVal = this.first; // "BILLY, CORONA", 100
+//     this.first = this.first.next; // "Jill, concussion", 7 ==> IS NOW THE FIRST ON QUEUE
+//     return maxVal.data; // "BILLY, CORONA", 100
 
 // ~~~~~~~~~~~ OPTOMIZATION WITH HEAPS ~~~~~~~~~~~~~~~~~~
 
